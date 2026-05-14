@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import TransitionProvider from "./components/TransitionProvider";
 
 export const metadata: Metadata = {
   title: "Lux-Mi Skin Wellness Aesthetics | Premium Skin & Beauty Treatments",
@@ -22,7 +23,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <TransitionProvider>
+          {children}
+        </TransitionProvider>
+      </body>
     </html>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import TransitionLink from "../components/TransitionLink";
 
 const services = [
   {
@@ -116,18 +117,18 @@ export default function ServicesPage() {
     <>
       {/* ── Navbar ── */}
       <nav className="navbar scrolled" ref={navRef} id="navbar">
-        <a href="/" className="nav-logo nav-logo-flex" id="nav-logo">
+        <TransitionLink href="/" className="nav-logo nav-logo-flex" id="nav-logo">
           <Image src="/logo.jpg" alt="Lux-Mi Logo" width={40} height={40} className="logo-img" />
           <span>Lux-Mi Skin Wellness Aesthetics</span>
-        </a>
+        </TransitionLink>
         <ul className="nav-links">
-          <li><a href="/about" id="nav-about">About</a></li>
-          <li><a href="/services" id="nav-services">Treatments</a></li>
-          <li><a href="/contact" id="nav-contact">Contact</a></li>
+          <li><TransitionLink href="/about" id="nav-about">About</TransitionLink></li>
+          <li><TransitionLink href="/services" id="nav-services">Treatments</TransitionLink></li>
+          <li><TransitionLink href="/contact" id="nav-contact">Contact</TransitionLink></li>
         </ul>
-        <a href="/contact" className="nav-cta" id="nav-book">
+        <TransitionLink href="/contact" className="nav-cta" id="nav-book">
           Book Now
-        </a>
+        </TransitionLink>
       </nav>
 
       {/* ── Hero ── */}

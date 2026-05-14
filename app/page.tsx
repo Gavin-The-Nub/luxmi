@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import TransitionLink from "./components/TransitionLink";
 
 const services = [
   {
@@ -130,13 +131,13 @@ export default function Home() {
           <span>Lux-Mi Skin Wellness Aesthetics</span>
         </a>
         <ul className="nav-links">
-          <li><a href="/about" id="nav-about">About</a></li>
-          <li><a href="/services" id="nav-services">Treatments</a></li>
-          <li><a href="/contact" id="nav-contact">Contact</a></li>
+          <li><TransitionLink href="/about" id="nav-about">About</TransitionLink></li>
+          <li><TransitionLink href="/services" id="nav-services">Treatments</TransitionLink></li>
+          <li><TransitionLink href="/contact" id="nav-contact">Contact</TransitionLink></li>
         </ul>
-        <a href="/contact" className="nav-cta" id="nav-book">
+        <TransitionLink href="/contact" className="nav-cta" id="nav-book">
           Book Now
-        </a>
+        </TransitionLink>
       </nav>
 
       {/* ── Hero ── */}
@@ -174,9 +175,9 @@ export default function Home() {
             <a href="#services" className="btn-primary" id="hero-explore">
               <span>Explore Treatments</span>
             </a>
-            <a href="/contact" className="btn-outline" id="hero-book">
+            <TransitionLink href="/contact" className="btn-outline" id="hero-book">
               Book a Session
-            </a>
+            </TransitionLink>
           </div>
         </div>
       </section>
@@ -197,9 +198,9 @@ export default function Home() {
               Founded on the principles of precision, safety, and luxury, we offer bespoke treatments tailored to your unique skin needs. Our team of experts is dedicated to guiding you on your journey to radiant, healthy skin.
             </p>
             <div style={{ marginTop: '2.5rem' }}>
-              <a href="/about" className="btn-outline" style={{ color: 'var(--dark)', borderColor: 'var(--rose)' }}>
+              <TransitionLink href="/about" className="btn-outline" style={{ color: 'var(--dark)', borderColor: 'var(--rose)' }}>
                 Learn More About Us
-              </a>
+              </TransitionLink>
             </div>
           </div>
           <div className="about-image-wrapper reveal">

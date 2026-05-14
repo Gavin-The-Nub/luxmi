@@ -754,3 +754,9 @@ footer .footer-logo {
     white-space: nowrap;
   }
 }
+
+@keyframes initial-reveal {
+  0% { transform: translateY(0%); }
+  100% { transform: translateY(-100%); }
+}
+
