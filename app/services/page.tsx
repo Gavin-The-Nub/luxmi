@@ -78,18 +78,10 @@ const services = [
   },
 ];
 
-
-
-export default function Home() {
-  const heroBgRef = useRef<HTMLDivElement>(null);
+export default function ServicesPage() {
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Hero bg zoom-in on load
-    const timer = setTimeout(() => {
-      heroBgRef.current?.classList.add("loaded");
-    }, 100);
-
     // Navbar scroll effect
     const handleScroll = () => {
       if (window.scrollY > 60) {
@@ -115,7 +107,6 @@ export default function Home() {
     reveals.forEach((el) => observer.observe(el));
 
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
@@ -124,8 +115,8 @@ export default function Home() {
   return (
     <>
       {/* ── Navbar ── */}
-      <nav className="navbar" ref={navRef} id="navbar">
-        <a href="#" className="nav-logo nav-logo-flex" id="nav-logo">
+      <nav className="navbar scrolled" ref={navRef} id="navbar">
+        <a href="/" className="nav-logo nav-logo-flex" id="nav-logo">
           <Image src="/logo.jpg" alt="Lux-Mi Logo" width={40} height={40} className="logo-img" />
           <span>Lux-Mi Skin Wellness Aesthetics</span>
         </a>
@@ -140,86 +131,24 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="hero" id="hero">
-        <div className="hero-bg" ref={heroBgRef} />
-        <div className="hero-overlay" />
-
-        {/* Floating particles */}
-        <div className="particles" aria-hidden="true">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <span
-              key={i}
-              className="particle"
-              style={{
-                left: `${Math.random() * 100}%`,
-                width: `${4 + Math.random() * 6}px`,
-                height: `${4 + Math.random() * 6}px`,
-                animationDuration: `${8 + Math.random() * 12}s`,
-                animationDelay: `${Math.random() * 8}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        <div className="hero-content">
-          <h1 className="hero-title">
-            Where Beauty
-            <br />
-            <em>Meets Science</em>
+      <section className="hero" style={{ height: "50vh", minHeight: "350px" }}>
+        <div className="hero-bg" style={{ backgroundImage: "url('/4.jpeg')", opacity: 0.4 }} />
+        <div className="hero-overlay" style={{ background: "rgba(26, 20, 16, 0.7)" }} />
+        <div className="hero-content" style={{ paddingTop: "4rem", textAlign: "center", margin: "0 auto" }}>
+          <h1 className="hero-title" style={{ fontSize: "clamp(3.5rem, 8vw, 6rem)" }}>
+            Our <em>Treatments</em>
           </h1>
           <p className="hero-sub">
-            Precision treatments. Radiant results.
+            Bespoke treatments tailored to your unique skin needs.
           </p>
-          <div className="hero-actions">
-            <a href="#services" className="btn-primary" id="hero-explore">
-              <span>Explore Treatments</span>
-            </a>
-            <a href="/contact" className="btn-outline" id="hero-book">
-              Book a Session
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* ── About Us ── */}
-      <section className="about-section" id="about">
-        <div className="about-container">
-          <div className="about-content reveal">
-            <p className="section-label" style={{ textAlign: 'left' }}>Our Story</p>
-            <h2 className="section-title" style={{ textAlign: 'left' }}>
-              Elevating Your <em>Natural</em> Beauty
-            </h2>
-            <div className="gold-rule" style={{ margin: '1.5rem 0' }} />
-            <p className="about-text">
-              At Lux-Mi Skin Wellness Aesthetics, we believe that skincare is not just about looking good, but feeling confident in your own skin. Our clinic combines advanced medical aesthetics with a holistic approach to wellness.
-            </p>
-            <p className="about-text">
-              Founded on the principles of precision, safety, and luxury, we offer bespoke treatments tailored to your unique skin needs. Our team of experts is dedicated to guiding you on your journey to radiant, healthy skin.
-            </p>
-            <div style={{ marginTop: '2.5rem' }}>
-              <a href="/about" className="btn-outline" style={{ color: 'var(--dark)', borderColor: 'var(--rose)' }}>
-                Learn More About Us
-              </a>
-            </div>
-          </div>
-          <div className="about-image-wrapper reveal">
-            <div className="about-image-bg" />
-            <Image 
-              src="/about-us.png" 
-              alt="About Lux-Mi" 
-              width={600} 
-              height={600} 
-              className="about-image"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Services ── */}
-      <section className="services-section" id="services">
+      {/* ── Services Grid ── */}
+      <section className="services-section" style={{ background: "var(--cream)", padding: "7rem 3rem" }}>
         <p className="section-label reveal">What We Offer</p>
         <h2 className="section-title reveal">
-          Our <em>Treatments</em>
+          Premium <em>Treatments</em>
         </h2>
         <div className="gold-rule reveal" />
 
@@ -229,7 +158,7 @@ export default function Home() {
               key={s.num}
               className="service-card reveal"
               id={`service-${s.num}`}
-              style={{ transitionDelay: `${(i % 4) * 0.08}s` }}
+              style={{ transitionDelay: `${(i % 4) * 0.05}s` }}
             >
               <div 
                 className="service-card-bg" 
@@ -245,8 +174,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-
 
       {/* ── CTA ── */}
       <section className="cta-section" id="contact">

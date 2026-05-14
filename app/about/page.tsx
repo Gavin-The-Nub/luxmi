@@ -46,12 +46,11 @@ export default function About() {
           <span>Lux-Mi Skin Wellness Aesthetics</span>
         </a>
         <ul className="nav-links">
-          <li><a href="/#services" id="nav-services">Services</a></li>
-          <li><a href="/#about" id="nav-about">About</a></li>
-          <li><a href="/#why" id="nav-why">Why Us</a></li>
-          <li><a href="/#contact" id="nav-contact">Contact</a></li>
+          <li><a href="/about" id="nav-about">About</a></li>
+          <li><a href="/services" id="nav-services">Treatments</a></li>
+          <li><a href="/contact" id="nav-contact">Contact</a></li>
         </ul>
-        <a href="/#contact" className="nav-cta" id="nav-book">
+        <a href="/contact" className="nav-cta" id="nav-book">
           Book Now
         </a>
       </nav>
@@ -60,12 +59,9 @@ export default function About() {
       <section className="hero" style={{ height: "60vh", minHeight: "400px" }}>
         <div className="hero-bg" style={{ backgroundImage: "url('/about-us.png')", opacity: 0.5 }} />
         <div className="hero-overlay" style={{ background: "rgba(26, 20, 16, 0.6)" }} />
-        <div className="hero-content">
-          <span className="hero-tag">About Us</span>
-          <h1 className="hero-title" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}>
-            Our Story &
-            <br />
-            <em>Vision</em>
+        <div className="hero-content" style={{ paddingTop: "4rem", textAlign: "center", margin: "0 auto" }}>
+          <h1 className="hero-title no-wrap-desktop" style={{ fontSize: "clamp(3.5rem, 8vw, 6rem)" }}>
+            Our Story & <em>Vision</em>
           </h1>
           <p className="hero-sub">
             Learn more about our mission and the team behind Lux-Mi.
@@ -74,14 +70,14 @@ export default function About() {
       </section>
 
       {/* ── Content ── */}
-      <section className="section" style={{ background: "var(--white)" }}>
+      <section className="section" style={{ background: "var(--white)", padding: "10rem 3rem 7rem 3rem" }}>
         <div className="about-container">
           <div className="about-content reveal">
             <p className="section-label" style={{ textAlign: "left" }}>The Vision</p>
             <h2 className="section-title" style={{ textAlign: "left" }}>
               Redefining <em>Skin</em> Wellness
             </h2>
-            <div className="gold-rule" style={{ margin: "1.5rem 0" }} />
+            <div className="gold-rule" style={{ margin: "2rem 0 3rem 0", width: "100px" }} />
             <p className="about-text">
               Lux-Mi Skin Wellness Aesthetics was founded with a clear vision: to create a sanctuary where advanced science meets luxury care. We believe that true beauty is holistic, and our goal is to enhance your natural features while promoting overall skin health.
             </p>
