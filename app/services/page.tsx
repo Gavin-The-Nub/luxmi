@@ -126,9 +126,9 @@ export default function ServicesPage() {
           <li><TransitionLink href="/services" id="nav-services">Treatments</TransitionLink></li>
           <li><TransitionLink href="/contact" id="nav-contact">Contact</TransitionLink></li>
         </ul>
-        <TransitionLink href="/contact" className="nav-cta" id="nav-book">
-          Book Now
-        </TransitionLink>
+        <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="nav-cta" id="nav-book">
+          Message Us
+        </a>
       </nav>
 
       {/* ── Hero ── */}
@@ -155,11 +155,14 @@ export default function ServicesPage() {
 
         <div className="services-grid">
           {services.map((s, i) => (
-            <article
+            <a
               key={s.num}
+              href={`https://m.me/61573448662954?text=${encodeURIComponent(`Hi! I'm interested in the ${s.name} treatment.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="service-card reveal"
               id={`service-${s.num}`}
-              style={{ transitionDelay: `${(i % 4) * 0.05}s` }}
+              style={{ transitionDelay: `${(i % 4) * 0.05}s`, textDecoration: 'none' }}
             >
               <div 
                 className="service-card-bg" 
@@ -171,7 +174,7 @@ export default function ServicesPage() {
                 <span className="service-tag">{s.tag}</span>
                 <div className="service-arrow">→</div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -188,8 +191,8 @@ export default function ServicesPage() {
           Book your complimentary consultation today.
         </p>
         <div className="reveal">
-          <a href="tel:+1234567890" className="btn-primary" id="cta-call">
-            <span>Get in Touch</span>
+          <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="btn-primary" id="cta-call">
+            <span>Message Us</span>
           </a>
         </div>
       </section>

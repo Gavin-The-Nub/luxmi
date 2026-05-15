@@ -135,9 +135,9 @@ export default function Home() {
           <li><TransitionLink href="/services" id="nav-services">Treatments</TransitionLink></li>
           <li><TransitionLink href="/contact" id="nav-contact">Contact</TransitionLink></li>
         </ul>
-        <TransitionLink href="/contact" className="nav-cta" id="nav-book">
-          Book Now
-        </TransitionLink>
+        <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="nav-cta" id="nav-book">
+          Message Us
+        </a>
       </nav>
 
       {/* ── Hero ── */}
@@ -172,12 +172,12 @@ export default function Home() {
             Precision treatments. Radiant results.
           </p>
           <div className="hero-actions">
-            <a href="#services" className="btn-primary" id="hero-explore">
+            <TransitionLink href="/services" className="btn-primary" id="hero-explore">
               <span>Explore Treatments</span>
-            </a>
-            <TransitionLink href="/contact" className="btn-outline" id="hero-book">
-              Book a Session
             </TransitionLink>
+            <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="btn-outline" id="hero-book">
+              Message Us
+            </a>
           </div>
         </div>
       </section>
@@ -226,11 +226,14 @@ export default function Home() {
 
         <div className="services-grid">
           {services.map((s, i) => (
-            <article
+            <a
               key={s.num}
+              href={`https://m.me/61573448662954?text=${encodeURIComponent(`Hi! I'm interested in the ${s.name} treatment.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="service-card reveal"
               id={`service-${s.num}`}
-              style={{ transitionDelay: `${(i % 4) * 0.08}s` }}
+              style={{ transitionDelay: `${(i % 4) * 0.08}s`, textDecoration: 'none' }}
             >
               <div 
                 className="service-card-bg" 
@@ -242,7 +245,7 @@ export default function Home() {
                 <span className="service-tag">{s.tag}</span>
                 <div className="service-arrow">→</div>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -261,8 +264,8 @@ export default function Home() {
           Book your complimentary consultation today.
         </p>
         <div className="reveal">
-          <a href="tel:+1234567890" className="btn-primary" id="cta-call">
-            <span>Get in Touch</span>
+          <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="btn-primary" id="cta-call">
+            <span>Message Us</span>
           </a>
         </div>
       </section>

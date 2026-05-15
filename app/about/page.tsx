@@ -51,9 +51,9 @@ export default function About() {
           <li><TransitionLink href="/services" id="nav-services">Treatments</TransitionLink></li>
           <li><TransitionLink href="/contact" id="nav-contact">Contact</TransitionLink></li>
         </ul>
-        <TransitionLink href="/contact" className="nav-cta" id="nav-book">
-          Book Now
-        </TransitionLink>
+        <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="nav-cta" id="nav-book">
+          Message Us
+        </a>
       </nav>
 
       {/* ── Hero ── */}
