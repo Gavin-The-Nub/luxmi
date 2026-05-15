@@ -744,14 +744,15 @@ footer .footer-logo {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100vw;
+    height: 100vh;
     background: var(--cream);
     padding: 6rem 2rem 2rem 2rem;
     z-index: 100;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2rem;
+    overflow-y: auto;
   }
 
   .nav-links.active a {
