@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import TransitionLink from "./components/TransitionLink";
 
@@ -83,7 +83,8 @@ const services = [
 
 export default function Home() {
   const heroBgRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLElement>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     // Hero bg zoom-in on load
@@ -94,9 +95,9 @@ export default function Home() {
     // Navbar scroll effect
     const handleScroll = () => {
       if (window.scrollY > 60) {
-        navRef.current?.classList.add("scrolled");
+        setIsScrolled(true);
       } else {
-        navRef.current?.classList.remove("scrolled");
+        setIsScrolled(false);
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -122,18 +123,39 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+    return () => document.body.classList.remove("no-scroll");
+  }, [isMenuOpen]);
+
   return (
     <>
       {/* ── Navbar ── */}
-      <nav className="navbar" ref={navRef} id="navbar">
+      <nav className={`navbar ${isScrolled ? "scrolled" : ""} ${isMenuOpen ? "nav-open" : ""}`} id="navbar">
         <a href="#" className="nav-logo nav-logo-flex" id="nav-logo">
           <Image src="/logo.jpg" alt="Lux-Mi Logo" width={40} height={40} className="logo-img" />
-          <span>Lux-Mi Skin Wellness Aesthetics</span>
+          <span>Lux-Mi <span className="brand-name-extra">Skin Wellness Aesthetics</span></span>
         </a>
-        <ul className="nav-links">
+
+        <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+          <span className="hamburger-bar"></span>
+          <span className="hamburger-bar"></span>
+          <span className="hamburger-bar"></span>
+        </button>
+
+        <ul className={`nav-links ${isMenuOpen ? "active" : ""}`}>
           <li><TransitionLink href="/about" id="nav-about">About</TransitionLink></li>
           <li><TransitionLink href="/services" id="nav-services">Treatments</TransitionLink></li>
           <li><TransitionLink href="/contact" id="nav-contact">Contact</TransitionLink></li>
+          <li className="mobile-only">
+            <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ marginTop: '1rem' }}>
+              <span>Message Us</span>
+            </a>
+          </li>
         </ul>
         <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="nav-cta" id="nav-book">
           Message Us
@@ -205,11 +227,11 @@ export default function Home() {
           </div>
           <div className="about-image-wrapper reveal">
             <div className="about-image-bg" />
-            <Image 
-              src="/about-us.png" 
-              alt="About Lux-Mi" 
-              width={600} 
-              height={600} 
+            <Image
+              src="/about-us.png"
+              alt="About Lux-Mi"
+              width={600}
+              height={600}
               className="about-image"
             />
           </div>
@@ -225,7 +247,7 @@ export default function Home() {
         <div className="gold-rule reveal" />
 
         <div className="services-grid">
-          {services.map((s, i) => (
+          {services.slice(0, 8).map((s, i) => (
             <a
               key={s.num}
               href={`https://m.me/61573448662954?text=${encodeURIComponent(`Hi! I'm interested in the ${s.name} treatment.`)}`}
@@ -235,9 +257,9 @@ export default function Home() {
               id={`service-${s.num}`}
               style={{ transitionDelay: `${(i % 4) * 0.08}s`, textDecoration: 'none' }}
             >
-              <div 
-                className="service-card-bg" 
-                style={{ backgroundImage: `url(${s.img})` }} 
+              <div
+                className="service-card-bg"
+                style={{ backgroundImage: `url(${s.img})` }}
               />
               <div className="service-card-content">
                 <div className="service-num">{s.num}</div>
@@ -247,6 +269,12 @@ export default function Home() {
               </div>
             </a>
           ))}
+        </div>
+
+        <div className="reveal" style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
+          <TransitionLink href="/services" className="btn-primary">
+            <span>View All Treatments</span>
+          </TransitionLink>
         </div>
       </section>
 

@@ -1,19 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import TransitionLink from "../components/TransitionLink";
 
 export default function About() {
-  const navRef = useRef<HTMLElement>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(true);
 
   useEffect(() => {
     // Navbar scroll effect
     const handleScroll = () => {
       if (window.scrollY > 60) {
-        navRef.current?.classList.add("scrolled");
+        setIsScrolled(true);
       } else {
-        navRef.current?.classList.remove("scrolled");
+        setIsScrolled(false);
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -38,18 +39,39 @@ export default function About() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+    return () => document.body.classList.remove("no-scroll");
+  }, [isMenuOpen]);
+
   return (
     <>
       {/* ── Navbar ── */}
-      <nav className="navbar scrolled" ref={navRef} id="navbar">
+      <nav className={`navbar ${isScrolled ? "scrolled" : ""} ${isMenuOpen ? "nav-open" : ""}`} id="navbar">
         <TransitionLink href="/" className="nav-logo nav-logo-flex" id="nav-logo">
           <Image src="/logo.jpg" alt="Lux-Mi Logo" width={40} height={40} className="logo-img" />
-          <span>Lux-Mi Skin Wellness Aesthetics</span>
+          <span>Lux-Mi <span className="brand-name-extra">Skin Wellness Aesthetics</span></span>
         </TransitionLink>
-        <ul className="nav-links">
+        
+        <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+          <span className="hamburger-bar"></span>
+          <span className="hamburger-bar"></span>
+          <span className="hamburger-bar"></span>
+        </button>
+
+        <ul className={`nav-links ${isMenuOpen ? "active" : ""}`}>
           <li><TransitionLink href="/about" id="nav-about">About</TransitionLink></li>
           <li><TransitionLink href="/services" id="nav-services">Treatments</TransitionLink></li>
           <li><TransitionLink href="/contact" id="nav-contact">Contact</TransitionLink></li>
+          <li className="mobile-only">
+            <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ marginTop: '1rem' }}>
+              <span>Message Us</span>
+            </a>
+          </li>
         </ul>
         <a href="https://m.me/61573448662954" target="_blank" rel="noopener noreferrer" className="nav-cta" id="nav-book">
           Message Us
