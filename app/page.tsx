@@ -186,12 +186,10 @@ export default function Home() {
 
         <div className="hero-content">
           <h1 className="hero-title">
-            Where Beauty
-            <br />
-            <em>Meets Science</em>
+            Discover your <em>Glow</em>
           </h1>
           <p className="hero-sub">
-            Precision treatments. Radiant results.
+            Where Beauty Meets Science
           </p>
           <div className="hero-actions">
             <TransitionLink href="/services" className="btn-primary" id="hero-explore">
@@ -228,7 +226,7 @@ export default function Home() {
           <div className="about-image-wrapper reveal">
             <div className="about-image-bg" />
             <Image
-              src="/about-us.png"
+              src="/about-lobby.jpg"
               alt="About Lux-Mi"
               width={600}
               height={600}

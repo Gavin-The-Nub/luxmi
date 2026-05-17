@@ -111,8 +111,8 @@ export default function About() {
           <div className="about-image-wrapper reveal">
             <div className="about-image-bg" />
             <Image 
-              src="/about-team.png" 
-              alt="Our Team" 
+              src="/about-logo.jpg" 
+              alt="Lux-Mi Wellness Wall" 
               width={600} 
               height={600} 
               className="about-image"
