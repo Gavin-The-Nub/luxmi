@@ -82,6 +82,15 @@ const services = [
 export default function ContactPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(true);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    treatment: "",
+    message: ""
+  });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     // Navbar scroll effect
@@ -122,6 +131,47 @@ export default function ContactPage() {
     }
     return () => document.body.classList.remove("no-scroll");
   }, [isMenuOpen]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
+      setStatus("success");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        treatment: "",
+        message: "",
+      });
+    } catch (err: any) {
+      setStatus("error");
+      setErrorMessage(err.message || "An unexpected error occurred.");
+    }
+  };
 
   return (
     <>
@@ -175,31 +225,137 @@ export default function ContactPage() {
           <div className="contact-form-wrapper contact-card reveal">
             <p className="section-label" style={{ textAlign: "left" }}>Inquiry</p>
             <h2 className="section-title" style={{ textAlign: "left", marginBottom: "2.5rem" }}>Send Us a <em>Message</em></h2>
-            <form className="inquiry-form">
-              <div className="form-group">
-                <input type="text" placeholder="Your Name" required />
+            
+            {status === "success" ? (
+              <div className="form-success-container" style={{
+                background: "rgba(201, 147, 122, 0.08)",
+                border: "1px solid rgba(201, 147, 122, 0.25)",
+                borderRadius: "12px",
+                padding: "2.5rem 2rem",
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "1rem"
+              }}>
+                <div style={{
+                  width: "56px",
+                  height: "56px",
+                  borderRadius: "50%",
+                  background: "rgba(201, 147, 122, 0.15)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "var(--rose-dark, #A6755E)",
+                  marginBottom: "0.5rem"
+                }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <h3 style={{ fontFamily: "Georgia, serif", fontSize: "1.4rem", color: "var(--charcoal, #1A1410)", fontWeight: "normal", fontStyle: "italic", margin: 0 }}>Message Sent Successfully</h3>
+                <p style={{ color: "var(--charcoal)", fontSize: "0.95rem", lineHeight: "1.6", margin: 0, maxWidth: "340px" }}>
+                  Thank you for reaching out to Lux-Mi! We have received your inquiry and will respond to you shortly.
+                </p>
+                <button 
+                  onClick={() => setStatus("idle")} 
+                  className="btn-primary" 
+                  style={{ marginTop: "1rem" }}
+                >
+                  <span>Send Another Message</span>
+                </button>
               </div>
-              <div className="form-group">
-                <input type="email" placeholder="Your Email" required />
-              </div>
-              <div className="form-group">
-                <input type="tel" placeholder="Phone Number" />
-              </div>
-              <div className="form-group">
-                <select defaultValue="">
-                  <option value="" disabled>Select Treatment (Optional)</option>
-                  {services.map((s) => (
-                    <option key={s.num} value={s.name}>{s.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <textarea placeholder="Your Message" rows={4} required></textarea>
-              </div>
-              <button type="submit" className="btn-primary" style={{ alignSelf: "flex-start", marginTop: "1rem" }}>
-                <span>Send Message</span>
-              </button>
-            </form>
+            ) : (
+              <form className="inquiry-form" onSubmit={handleSubmit}>
+                {status === "error" && (
+                  <div style={{
+                    background: "rgba(186, 45, 45, 0.08)",
+                    border: "1px solid rgba(186, 45, 45, 0.2)",
+                    borderRadius: "8px",
+                    padding: "1rem 1.25rem",
+                    color: "#ba2d2d",
+                    fontSize: "0.9rem",
+                    lineHeight: "1.5",
+                    marginBottom: "1.5rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.75rem"
+                  }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+                
+                <div className="form-group">
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name" 
+                    required 
+                    disabled={status === "loading"}
+                  />
+                </div>
+                <div className="form-group">
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your Email" 
+                    required 
+                    disabled={status === "loading"}
+                  />
+                </div>
+                <div className="form-group">
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Phone Number" 
+                    disabled={status === "loading"}
+                  />
+                </div>
+                <div className="form-group">
+                  <select 
+                    name="treatment"
+                    value={formData.treatment}
+                    onChange={handleChange}
+                    disabled={status === "loading"}
+                  >
+                    <option value="">Select Treatment (Optional)</option>
+                    {services.map((s) => (
+                      <option key={s.num} value={s.name}>{s.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Your Message" 
+                    rows={4} 
+                    required 
+                    disabled={status === "loading"}
+                  ></textarea>
+                </div>
+                <button 
+                  type="submit" 
+                  className="btn-primary" 
+                  style={{ alignSelf: "flex-start", marginTop: "1rem" }}
+                  disabled={status === "loading"}
+                >
+                  <span>{status === "loading" ? "Sending..." : "Send Message"}</span>
+                </button>
+              </form>
+            )}
           </div>
 
           {/* Map & Info */}
