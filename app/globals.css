@@ -890,3 +890,389 @@ footer .footer-logo {
   100% { transform: translateY(-100%); }
 }
 
+/* ── Treatments & Benefits Section ── */
+.treatments-guide-section {
+  background: var(--white);
+  padding: 7rem 3rem;
+  border-top: 1px solid rgba(201, 147, 122, 0.15);
+}
+
+.treatments-container {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 3.5rem;
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  align-items: start;
+}
+
+.treatment-tab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.treatment-tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  background: var(--cream);
+  border: 1px solid rgba(201, 147, 122, 0.12);
+  color: var(--dark);
+  text-align: left;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 6px;
+}
+
+.treatment-tab-btn:hover {
+  background: rgba(201, 147, 122, 0.08);
+  border-color: rgba(201, 147, 122, 0.3);
+  transform: translateX(4px);
+}
+
+.treatment-tab-btn.active {
+  background: var(--white);
+  border-color: var(--rose);
+  border-left: 4px solid var(--rose);
+  box-shadow: 0 12px 30px rgba(201, 147, 122, 0.12);
+  color: var(--rose-dark);
+  font-weight: 500;
+  transform: translateX(8px);
+}
+
+.treatment-tab-btn .tab-arrow {
+  font-size: 1rem;
+  color: var(--rose);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+}
+
+.treatment-tab-btn.active .tab-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.treatment-content-panel {
+  background: var(--white);
+  padding: 3.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 147, 122, 0.15);
+  box-shadow: 0 25px 65px rgba(201, 147, 122, 0.06);
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Glassmorphism accent inside content panel */
+.treatment-content-panel::after {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(201,147,122,0.06) 0%, rgba(201,147,122,0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.treatment-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(201, 147, 122, 0.12);
+  padding-bottom: 1.5rem;
+}
+
+.treatment-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 350;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.treatment-tagline {
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rose);
+  font-weight: 600;
+}
+
+.benefits-box {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(240, 217, 208, 0.25) 0%, rgba(253, 248, 245, 0.1) 100%);
+  border-left: 3px solid var(--gold);
+  padding: 1.75rem 2rem;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 2.25rem;
+}
+
+.benefits-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--rose-dark);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.benefits-text {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--charcoal);
+  font-weight: 300;
+}
+
+.targets-section {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2.5rem;
+}
+
+.targets-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.1rem;
+  font-weight: 600;
+}
+
+.targets-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.target-badge {
+  background: var(--cream);
+  border: 1px solid rgba(201, 147, 122, 0.18);
+  color: var(--rose-dark);
+  padding: 0.55rem 1.25rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.target-badge:hover {
+  background: rgba(201, 147, 122, 0.12);
+  border-color: var(--rose);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(201, 147, 122, 0.08);
+}
+
+.treatment-action {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: auto;
+}
+
+.treatment-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 2.4rem;
+  background: var(--rose);
+  color: var(--white);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 400;
+  transition: all 0.4s ease;
+  border: 1px solid var(--rose);
+}
+
+.treatment-btn:hover {
+  background: transparent;
+  color: var(--rose-dark);
+  border-color: var(--rose);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(201, 147, 122, 0.15);
+}
+
+.treatment-btn-icon {
+  font-size: 0.95rem;
+  transition: transform 0.3s ease;
+}
+
+.treatment-btn:hover .treatment-btn-icon {
+  transform: translateX(3px);
+}
+
+/* Fade in animation for tab switch */
+.fade-slide-in {
+  animation: fadeSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 992px) {
+  .desktop-tabs-layout {
+    display: none !important;
+  }
+  .mobile-only-accordion {
+    display: block !important;
+  }
+  
+  .treatments-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .treatment-tab-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.75rem;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.6rem;
+  }
+  .treatment-tab-btn {
+    white-space: nowrap;
+    padding: 0.9rem 1.3rem;
+    flex-shrink: 0;
+  }
+  .treatment-tab-btn.active {
+    border-left: 1px solid var(--rose);
+    border-bottom: 4px solid var(--rose);
+    transform: translateY(-2px);
+  }
+  .treatment-tab-btn:hover {
+    transform: translateY(-2px);
+  }
+  .treatment-tab-btn .tab-arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .treatments-guide-section {
+    padding: 5rem 1.5rem;
+  }
+  .treatment-content-panel {
+    padding: 2.25rem 1.5rem;
+    min-height: auto;
+  }
+  .treatment-title {
+    font-size: 1.95rem;
+  }
+  .target-badge {
+    padding: 0.45rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ── Mobile Accordion Styles ── */
+.mobile-only-accordion {
+  display: none;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+
+.accordion-item {
+  background: var(--white);
+  border: 1px solid rgba(201, 147, 122, 0.15);
+  border-radius: 8px;
+  margin-bottom: 0.85rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(201, 147, 122, 0.03);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-item.open {
+  border-color: var(--rose);
+  box-shadow: 0 12px 35px rgba(201, 147, 122, 0.09);
+}
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: var(--cream);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+
+.accordion-item.open .accordion-header {
+  background: var(--white);
+  border-bottom: 1px solid rgba(201, 147, 122, 0.1);
+}
+
+.accordion-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dark);
+  transition: color 0.3s ease;
+}
+
+.accordion-item.open .accordion-title {
+  color: var(--rose-dark);
+}
+
+.accordion-icon {
+  font-size: 1.35rem;
+  font-weight: 200;
+  color: var(--rose);
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.open .accordion-icon {
+  color: var(--rose-dark);
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-item.open .accordion-content {
+  max-height: 1400px; /* Enough space to expand all details */
+}
+
+.accordion-content-inner {
+  padding: 2.25rem 1.5rem;
+}
+
+
+

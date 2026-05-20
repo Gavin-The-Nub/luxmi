@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import TransitionLink from "../components/TransitionLink";
 
@@ -79,8 +79,122 @@ const services = [
   },
 ];
 
+// Mapping service card numbers to detailed guide tabs
+const serviceToTabMap: Record<string, string> = {
+  "02": "co2",          // CO₂ Fractional
+  "04": "hydrafacial",   // Hydra Facial
+  "05": "picodiode",     // Pico Diode Laser
+  "06": "diamondpeel",   // Diamond Peel
+  "07": "hifu",          // HIFU Treatment
+  "08": "hydrafacial",   // Luxury Facial (maps to Advanced Hydra Facial)
+  "10": "hifu",          // Barbie Arms (maps to HIFU)
+  "11": "picodiode",     // Under Arms (maps to Advanced Pico Diode)
+};
+
+// Detailed treatments and benefits information
+const treatmentDetails = [
+  {
+    id: "co2",
+    name: "Co2 Treatments",
+    tagline: "Advanced Skin Resurfacing",
+    targets: [
+      "Stretch Marks",
+      "Scar Treatments",
+      "Melasma Treatments",
+      "Fine Lines Reduction",
+      "Dark Spots"
+    ],
+    benefits: "Reduces deep wrinkles, acne scars, sun damage, and sagging skin while dramatically improving overall skin texture and tone. Perfect for restoring smooth, rejuvenated skin.",
+    msg: "Co2 Treatments"
+  },
+  {
+    id: "hydrafacial",
+    name: "Advanced Hydra Facial",
+    tagline: "Ultimate Deep Hydration & Exfoliation",
+    targets: [
+      "Luxury Facial",
+      "Acne-Cleanse Facial",
+      "Hydrogen Facial",
+      "8 in 1 Hydra Facial Treatment",
+      "BabyGlow Facial"
+    ],
+    benefits: "Delivers instantly improved skin texture, reduced fine lines, diminished pores, and deeply enhanced hydration. An all-in-one facial with absolutely zero downtime.",
+    msg: "Advanced Hydra Facial"
+  },
+  {
+    id: "hifu",
+    name: "7D / 12D Hifu Treatment",
+    tagline: "Non-Surgical Face & Body Lift",
+    targets: [
+      "Barbie Arms",
+      "Face Lifting",
+      "Puffiness @ Eyebags",
+      "Whole Face Hifu / 12D and 7D"
+    ],
+    benefits: "Effectively reduces wrinkles, defines the jawline, and lifts sagging skin on the face, neck, and décolletage by stimulating deep collagen layers non-invasively.",
+    msg: "7D Hifu / 12D Hifu Treatment"
+  },
+  {
+    id: "rf",
+    name: "RF Advanced",
+    tagline: "Radio Frequency Skin Tightening",
+    targets: [
+      "Abdomen - Reduction Skin Laxity / sagging smoother appearance of Stretch Marks",
+      "Thighs and Buttocks - Improved Texture"
+    ],
+    benefits: "This heat stimulates collagen and elastin production, resulting in firmer, tighter, and more youthful skin while reducing sagging and wrinkles.",
+    msg: "RF Advanced"
+  },
+  {
+    id: "diamondpeel",
+    name: "Advanced Diamond Peel",
+    tagline: "Gentle Exfoliation & Skin Renewal",
+    targets: [
+      "Removes dead skin cells",
+      "Uneven complexion",
+      "Enlarged Pores",
+      "Slight wrinkles",
+      "Sun damage",
+      "Fine Scars",
+      "Non inflamed Whiteheads"
+    ],
+    benefits: "Diamond peel is a non-invasive, mechanical exfoliation treatment that uses a diamond-tipped wand to remove dead skin cells, revealing smoother, brighter, and rejuvenated skin. It boosts collagen, reduces fine lines, minimizes pores, and treats acne scars, resulting in a more even skin tone with zero downtime.",
+    msg: "Advanced Diamond Peel"
+  },
+  {
+    id: "picolaser",
+    name: "Advanced Pico Laser",
+    tagline: "High-Precision Laser Therapy",
+    targets: [
+      "All Darkened Areas",
+      "Melasma Treatment",
+      "Acne Treatment"
+    ],
+    benefits: "Pico laser is a non-invasive, high-precision treatment using ultra-short (picosecond) energy pulses to treat skin pigmentation, acne scars, wrinkles, and tattoos with minimal heat damage and downtime. It effectively stimulates collagen and elastin for improved skin texture, tone, and firmness.",
+    msg: "Advanced Pico Laser"
+  },
+  {
+    id: "picodiode",
+    name: "Advanced Pico Diode Treatments",
+    tagline: "Targeted Whitening & Smoothing",
+    targets: [
+      "Under arm Whitening",
+      "Under Eye Whitening",
+      "Bikini Whitening",
+      "Arm Whitening",
+      "Back Whitening",
+      "Nape Whitening",
+      "Elbow Whitening"
+    ],
+    benefits: "Treating acne scars, reducing sun damage/melasma, removing tattoos, and enhancing skin texture and tone in delicate target areas.",
+    msg: "Advanced Pico Diode Treatments"
+  }
+];
+
 export default function ServicesPage() {
   const navRef = useRef<HTMLElement>(null);
+  const guideRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState("co2");
 
   useEffect(() => {
     // Navbar scroll effect
@@ -112,6 +226,15 @@ export default function ServicesPage() {
       observer.disconnect();
     };
   }, []);
+
+  const handleServiceClick = (e: React.MouseEvent<HTMLAnchorElement>, num: string) => {
+    const tabId = serviceToTabMap[num];
+    if (tabId) {
+      e.preventDefault();
+      setActiveTab(tabId);
+      guideRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <>
@@ -163,6 +286,7 @@ export default function ServicesPage() {
               className="service-card reveal"
               id={`service-${s.num}`}
               style={{ transitionDelay: `${(i % 4) * 0.05}s`, textDecoration: 'none' }}
+              onClick={(e) => handleServiceClick(e, s.num)}
             >
               <div 
                 className="service-card-bg" 
@@ -176,6 +300,144 @@ export default function ServicesPage() {
               </div>
             </a>
           ))}
+        </div>
+      </section>
+
+      {/* ── Treatments & Benefits Guide Section ── */}
+      <section ref={guideRef} className="treatments-guide-section" id="treatments-guide">
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <p className="section-label reveal">Clinical Guide</p>
+          <h2 className="section-title reveal">
+            Benefits & <em>Details</em>
+          </h2>
+          <div className="gold-rule reveal" />
+          <p className="reveal" style={{ textAlign: "center", color: "var(--muted)", maxWidth: "700px", margin: "0 auto 3rem", fontSize: "0.95rem", lineHeight: "1.7", fontWeight: 300 }}>
+            Discover the specific target areas and advanced aesthetic benefits of our specialized treatments. Click on any treatment card above or select from the tabs below to explore.
+          </p>
+
+          {/* Desktop Tabs Layout (Hidden on mobile) */}
+          <div className="desktop-tabs-layout treatments-container reveal">
+            {/* Left Tabs List */}
+            <div className="treatment-tab-list">
+              {treatmentDetails.map((item) => (
+                <button
+                  key={item.id}
+                  className={`treatment-tab-btn ${activeTab === item.id ? "active" : ""}`}
+                  onClick={() => setActiveTab(item.id)}
+                >
+                  <span>{item.name}</span>
+                  <span className="tab-arrow">→</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Right Details Panel */}
+            {(() => {
+              const current = treatmentDetails.find((t) => t.id === activeTab) || treatmentDetails[0];
+              return (
+                <div key={activeTab} className="treatment-content-panel fade-slide-in">
+                  <div>
+                    <div className="treatment-header">
+                      <h3 className="treatment-title">{current.name}</h3>
+                      <span className="treatment-tagline">{current.tagline}</span>
+                    </div>
+
+                    <div className="benefits-box">
+                      <h4 className="benefits-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
+                          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                        Clinical Benefits
+                      </h4>
+                      <p className="benefits-text">{current.benefits}</p>
+                    </div>
+
+                    <div className="targets-section">
+                      <h4 className="targets-title">Target Areas &amp; Specific Treatments</h4>
+                      <div className="targets-grid">
+                        {current.targets.map((target, idx) => (
+                          <span key={idx} className="target-badge">
+                            <span style={{ color: "var(--gold)", marginRight: "4px" }}>✦</span>
+                            {target}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="treatment-action">
+                    <a
+                      href={`https://m.me/61573448662954?text=${encodeURIComponent(`Hi! I'm interested in booking the ${current.msg} treatment and would love to consult with an expert.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="treatment-btn"
+                    >
+                      <span>Book {current.name}</span>
+                      <span className="treatment-btn-icon">→</span>
+                    </a>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+
+          {/* Mobile Accordion Layout (Visible only on mobile) */}
+          <div className="treatment-accordion-list mobile-only-accordion reveal">
+            {treatmentDetails.map((item) => {
+              const isOpen = activeTab === item.id;
+              return (
+                <div key={item.id} className={`accordion-item ${isOpen ? "open" : ""}`}>
+                  <button
+                    className="accordion-header"
+                    onClick={() => setActiveTab(isOpen ? "" : item.id)}
+                  >
+                    <span className="accordion-title">{item.name}</span>
+                    <span className="accordion-icon">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  <div className="accordion-content">
+                    <div className="accordion-content-inner">
+                      <span className="treatment-tagline" style={{ display: "block", marginBottom: "1rem" }}>{item.tagline}</span>
+                      
+                      <div className="benefits-box">
+                        <h4 className="benefits-title">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                          </svg>
+                          Clinical Benefits
+                        </h4>
+                        <p className="benefits-text">{item.benefits}</p>
+                      </div>
+
+                      <div className="targets-section">
+                        <h4 className="targets-title">Target Areas &amp; Specific Treatments</h4>
+                        <div className="targets-grid">
+                          {item.targets.map((target, idx) => (
+                            <span key={idx} className="target-badge">
+                              <span style={{ color: "var(--gold)", marginRight: "4px" }}>✦</span>
+                              {target}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="treatment-action">
+                        <a
+                          href={`https://m.me/61573448662954?text=${encodeURIComponent(`Hi! I'm interested in booking the ${item.msg} treatment and would love to consult with an expert.`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="treatment-btn"
+                          style={{ width: "100%", justifyContent: "center" }}
+                        >
+                          <span>Book {item.name}</span>
+                          <span className="treatment-btn-icon">→</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
