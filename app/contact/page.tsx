@@ -373,8 +373,8 @@ export default function ContactPage() {
             <div>
               <p className="section-label" style={{ textAlign: "left" }}>Connect</p>
               <p style={{ color: "var(--charcoal)", lineHeight: "1.8", fontSize: "0.95rem", letterSpacing: "0.02em", marginBottom: "1rem" }}>
-                <strong>Phone:</strong> <a href="tel:+1234567890" style={{ color: "var(--rose-dark)", textDecoration: "none" }}>+123 456 7890</a><br />
-                <strong>Email:</strong> <a href="mailto:info@luxmi.com" style={{ color: "var(--rose-dark)", textDecoration: "none" }}>info@luxmi.com</a>
+                <strong>Phone:</strong> <a href="tel:09918284300" style={{ color: "var(--rose-dark)", textDecoration: "none" }}>0991 828 4300</a><br />
+                <strong>Email:</strong> <a href="mailto:garciajrvictor6@gmail.com" style={{ color: "var(--rose-dark)", textDecoration: "none" }}>garciajrvictor6@gmail.com</a>
               </p>
               <div className="social-links">
                 <a href="https://www.facebook.com/profile.php?id=61573448662954" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">

@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     // Recipient email address
     // On Resend free tier (using onboarding@resend.dev), emails can only be sent to the registered address.
     // In production with a verified domain, this can be sent to info@luxmi.com or any custom address.
-    const toEmail = process.env.CONTACT_RECIPIENT_EMAIL || 'info@luxmi.com';
+    const toEmail = process.env.CONTACT_RECIPIENT_EMAIL || 'garciajrvictor6@gmail.com';
 
     // Premium HTML Email Template styled in Lux-Mi brand theme
     const htmlContent = `
